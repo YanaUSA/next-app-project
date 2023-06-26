@@ -23,7 +23,12 @@ function ArticleListByCategory({ category, articles }) {
 export default ArticleListByCategory;
 
 export async function getServerSideProps(context) {
-  const { category } = context.params;
+  const { params, req, res, query } = context;
+
+  //==== set cookies in header for saving the token ===//
+  res.setHeader("set-cookie", ["name=Bob"]);
+
+  const { category } = params;
   const data = await (
     await fetch(`http://localhost:4000/news?category=${category}`)
   )?.json();
